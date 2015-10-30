@@ -32,6 +32,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 			Log.d("MESSAGE", smsText);
 			Log.d("ADDRESS", smsAddress);
 			
+			SmsOperator operator = new SmsOperator(smsAddress, smsText);
+			operator.operateSms();
+			
 			//create intent
 			Intent smsActivityIntent = new Intent(context, SmsActivity.class);
 			smsActivityIntent.putExtra("ADDRESS", smsAddress);
