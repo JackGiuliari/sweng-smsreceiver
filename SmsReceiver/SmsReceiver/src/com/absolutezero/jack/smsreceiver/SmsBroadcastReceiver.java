@@ -2,6 +2,7 @@ package com.absolutezero.jack.smsreceiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,10 +31,15 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 			Log.d("MESSAGE", smsText);
 			Log.d("ADDRESS", smsAddress);
 			
+			//create intent
+			Intent smsActivityIntent = new Intent(context, SmsActivity.class);
+			PendingIntent goToSms = PendingIntent.getActivity(context, 0, smsActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
 			Notification notif = new Notification.Builder(context)
 					.setContentTitle(smsAddress)
 					.setContentText(smsText)
 					.setAutoCancel(true)
+					.setContentIntent(goToSms)
 					.setSmallIcon(R.drawable.ic_launcher).build();
 			
 			NotificationManager notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
